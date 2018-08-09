@@ -41,3 +41,9 @@
 },
 ```
 * 之后重启之后生效
+#统一使用入口配置antd,在dev.js中js部分
+```
+plugins:[  
+['import',[{libraryName:'antd',style:true}]]],
+```
+注意如果报了less文件的错误，是因为版本太高，需降低版本less如2.7.3
