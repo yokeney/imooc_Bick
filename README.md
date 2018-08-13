@@ -1,6 +1,7 @@
 #第一部分 基础插件的安装#
 ===================================
 ##安装##
+* 添加时less的版本2.7.3
 * react-router-dom axios less less-loader
 * yarn eject暴露配置文件webpack.config.dev.js，添加支持less的loader
 ```
@@ -34,14 +35,16 @@
         ],
       },
     },
+    //添加下面的部分
     {
       loader:require.resolve("less-loader")
     }
+    //end
   ],
 },
 ```
 * 之后重启之后生效
-#统一使用入口配置antd,在dev.js中js部分
+#统一使用入口配置antd,在webpack.config.dev.js中js部分
 ```
 plugins:[  
 ['import',[{libraryName:'antd',style:true}]]],
