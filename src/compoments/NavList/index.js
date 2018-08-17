@@ -7,7 +7,6 @@ const MenuItemGroup=Menu.ItemGroup
  export default class NavList extends Component{
  constructor(){
    super();
-
    }
    componentWillMount(){
      const  meneuTreeNode=this.renderMenu(menuList);
