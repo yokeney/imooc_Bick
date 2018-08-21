@@ -5,16 +5,11 @@ import './index.less'
 const SubMenu=Menu.SubMenu
 const MenuItemGroup=Menu.ItemGroup
  export default class NavList extends Component{
- constructor(){
-   super();
-   }
    componentWillMount(){
      const  meneuTreeNode=this.renderMenu(menuList);
      this.setState({
        meneuTreeNode
      })
-
-
    }
    renderMenu=(data)=>{
         return data.map((item)=>{

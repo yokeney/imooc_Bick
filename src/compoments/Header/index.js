@@ -4,9 +4,6 @@ import './index.less'
 import util from '../../util/util'
 // import axios from '../../axios'
  export default class Header extends Component{
- constructor(){
-   super();
-   }
    componentWillMount(){
      this.setState({
        username:'yoke'
@@ -41,7 +38,7 @@ import util from '../../util/util'
                 <Col span="4" className="breadcrumb-title">首页</Col>
                 <Col span="20" className="weather">
                   <span className="weather-date">{this.state.sysTime}</span>
-                  <span className="weather-tatil"></span>
+                  <span className="weather-tatil">多云转晴</span>
                 </Col>
               </Row>
             </div>
