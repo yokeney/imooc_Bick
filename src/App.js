@@ -8,8 +8,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Button type="primary" shape="circle" icon="search" />
-        <Icon type="link" />
+        {this.props.children}
       </div>
     );
   }
