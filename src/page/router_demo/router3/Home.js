@@ -14,6 +14,9 @@ import {Link} from 'react-router-dom'
                     <li>
                         <Link to="/topic">Topics1</Link>
                     </li>
+                    <li>
+                        <Link to="/imooc">imooc</Link>
+                    </li>
                 </ul>
             <hr />
             {this.props.children}

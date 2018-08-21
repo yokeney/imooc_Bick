@@ -4,7 +4,10 @@ import {Link} from "react-router-dom"
      render(){
          return (
                 <div>
-                    <Link to='/main/a'>嵌套路由</Link>
+                this is main page
+                <br/>
+                <Link to='/main/test-id'>嵌套路由1</Link>
+                <Link to='/main/456'>嵌套路由2</Link>
                     <hr/>
                     {this.props.children}
                 </div>
