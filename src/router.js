@@ -3,7 +3,7 @@ import React,{Component} from "react";
  import App from './App'
  import Login from './page/login'
  import Admin from './admin' ;
- import Button from './page/ui/buttons'
+ import Buttons from './page/ui/buttons'
  import NoMatch from './page/noMatch'
  export default class IRouter extends Component{
      render(){
@@ -16,8 +16,10 @@ import React,{Component} from "react";
                             {
                                 ()=>
                                 <Admin>
-                                    <Route path='/admin/ui/buttons' component={Button}></Route>
-                                    <Route  component={NoMatch}></Route>
+                                    <Switch>
+                                        <Route path='/admin/ui/buttons' component={Buttons}></Route>
+                                        <Route  component={NoMatch}></Route>
+                                    </Switch>
                                 </Admin>
                             }
                             ></Route>
