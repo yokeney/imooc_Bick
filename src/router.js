@@ -6,6 +6,7 @@ import React,{Component} from "react";
  import Buttons from './page/ui/buttons'
  import Modals from './page/ui/Modal'
  import NoMatch from './page/noMatch'
+ import Loading from './page/ui/Loading'
  export default class IRouter extends Component{
      render(){
          return (
@@ -20,6 +21,7 @@ import React,{Component} from "react";
                                     <Switch>
                                         <Route path='/admin/ui/buttons' component={Buttons}></Route>
                                         <Route path='/admin/ui/Modals' component={Modals}></Route>
+                                        <Route path='/admin/ui/loadings' component={Loading}></Route>
                                         <Route  component={NoMatch}></Route>
                                     </Switch>
                                 </Admin>
