@@ -24,7 +24,7 @@ import {Card,Row,Col,Modal} from 'antd'
          const imgList=imgs.map((list)=>
             list.map((item)=>
                 <Card style={{marginBottom:20}} cover={<img src={item}  onClick={()=>this.openGallery(item)}/>}>
-                    <Card.Meta title="yoke" description="i love you "/>
+                    <Card.Meta title="yoke" description="i lovess you "/>
                 </Card>
             ))
          return (

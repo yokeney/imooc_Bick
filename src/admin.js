@@ -8,7 +8,7 @@ import './style/common.less'
  export default class Admin extends Component{
    render(){
      return (
-          <Row className="container">
+          < Row className="container">
           <Col span="3" className="main">
               <NavList />
             </Col>
