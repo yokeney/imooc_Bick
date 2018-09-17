@@ -1,7 +1,6 @@
-import React,{Component} from "react";
+import React,{Component} from " react";
  import {HashRouter as Router,Route,Switch} from "react-router-dom"
- import Main from './Main'
- import Pro from './../router1/pro'
+  import Pro from './../router1/pro'
  import Topic from './../router1/topic'
  import Home from './Home'
  export default class Irouter extends Component{

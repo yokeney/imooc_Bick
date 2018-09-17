@@ -12,6 +12,7 @@ import Msg from './page/ui/Message'
 import Tab from './page/ui/tab'
 import Gallery from './page/ui/gallery'
 import Corousel from './page/ui/corousel'
+import Logins from './page/form/login'
 export default class IRouter extends Component{
      render(){
          return (
@@ -26,12 +27,13 @@ export default class IRouter extends Component{
                                     <Switch>
                                         <Route path='/admin/ui/buttons' component={Buttons}></Route>
                                         <Route path='/admin/ui/Modals' component={Modals}></Route>
-                                        <Route path='/admin/ui/loadings' component={Loading}></Route>
+                                        <Route path='/admin/ui/loading' component={Loading}></Route>
                                         <Route path='/admin/ui/notification' component={Notification}></Route>
                                         <Route path='/admin/ui/messages' component={Msg}></Route>
                                         <Route path='/admin/ui/tabs' component={Tab}></Route>
                                         <Route path='/admin/ui/gallery' component={Gallery}></Route>
                                         <Route path='/admin/ui/carousel' component={Corousel}></Route>
+                                        <Route path='/admin/form/login' component={Logins}></Route>
                                         <Route  component={NoMatch}></Route>
                                     </Switch>
                                 </Admin>
