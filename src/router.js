@@ -13,6 +13,7 @@ import Tab from './page/ui/tab'
 import Gallery from './page/ui/gallery'
 import Corousel from './page/ui/corousel'
 import Logins from './page/form/login'
+import FormRegister from './page/form/register'
 export default class IRouter extends Component{
      render(){
          return (
@@ -34,6 +35,7 @@ export default class IRouter extends Component{
                                         <Route path='/admin/ui/gallery' component={Gallery}></Route>
                                         <Route path='/admin/ui/carousel' component={Corousel}></Route>
                                         <Route path='/admin/form/login' component={Logins}></Route>
+                                        <Route path='/admin/form/reg' component={FormRegister}></Route>
                                         <Route  component={NoMatch}></Route>
                                     </Switch>
                                 </Admin>

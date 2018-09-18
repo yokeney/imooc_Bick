@@ -6,8 +6,9 @@ const FormItem=Form.Item;
      super();
      }
      handleSubmit=()=>{
+         {/*this.props.form.getFieldsValue()获取form里的值*/}
          let userinfo=this.props.form.getFieldsValue();
-         this.props.form.validateFields((err,values)=>{
+            this.props.form.validateFields((err,values)=>{
              if (!err) {
                  message.success(`${userinfo.userName} 恭喜通过`)
              }
@@ -45,10 +46,6 @@ const FormItem=Form.Item;
                                 max:10,
                                 message:"请输入5-10个字符"
                             },
-                            {
-                                pattern: new  RegExp('^\\W+$','g'),
-                                message:'用户名必须为数字或者字母'
-                            }
                         ]
                     })(<Input prefix={<Icon type='user' />} placeholder="请输入用户名"/>)
                     }
