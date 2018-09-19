@@ -2,11 +2,7 @@ import React,{Component} from "react";
 import {Card,Form,Button,Input,message,Icon,Checkbox} from 'antd';
 const FormItem=Form.Item;
  class Logins extends Component{
- constructor(){
-     super();
-     }
      handleSubmit=()=>{
-         {/*this.props.form.getFieldsValue()获取form里的值*/}
          let userinfo=this.props.form.getFieldsValue();
             this.props.form.validateFields((err,values)=>{
              if (!err) {
@@ -36,7 +32,6 @@ const FormItem=Form.Item;
                     <FormItem>
                     {
                         getFieldDecorator('userName',{
-                            // initialValue:'yoke',
                             rules:[{
                                  required:true,
                                 message:'用户名不能为空'
@@ -66,7 +61,7 @@ const FormItem=Form.Item;
                             <Checkbox>记住密码</Checkbox>
                         )
                     }
-                    <a href="#" style={{float:'right'}}>忘记密码？</a>
+                    <a href="http://www.baidu.com" style={{float:'right'}}>忘记密码？</a>
                     </FormItem>
                     <FormItem>
                         <Button onClick={this.handleSubmit} style={{float:'left',marginLeft:'0'}}>登陆</Button>

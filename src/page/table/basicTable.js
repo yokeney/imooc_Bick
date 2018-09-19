@@ -1,8 +1,9 @@
 import React,{Component} from "react";
  import {Card,Table} from 'antd';
+ import axios from './../../axios/index';
  export default class BasicTable extends Component{
      state={
-         data:[]
+         dataSourse2:[]
      }
      componentDidMount(){
          const data1=[
@@ -37,10 +38,23 @@ import React,{Component} from "react";
          this.setState({
              dataSourse:data1
          })
+         this.request();
      }
- constructor(){
-     super();
-
+     request=()=>{
+         axios.ajax({
+             url:'/tableList',
+             data:{
+                 params:{
+                     page:1
+                 }
+             }
+         }).then((res)=>{
+             if (res.code===0) {
+                 this.setState({
+                     dataSourse2:res.result.list
+                 })
+             }
+         })
      }
      render(){
         const colum=[
@@ -77,6 +91,9 @@ import React,{Component} from "react";
              <div>
                 <Card title="基础表格">
                     <Table columns={colum} dataSource={this.state.dataSourse} bordered pagination={false} />
+                </Card>
+                <Card title="动态数据表格" style={{marginTop:20}}>
+                    <Table columns={colum} dataSource={this.state.dataSourse2} bordered pagination={false} />
                 </Card>
              </div>
          )

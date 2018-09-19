@@ -1,11 +1,8 @@
 import React,{Component} from "react";
-import {Card,Button,Tabs,message,Icon,TabPane} from 'antd'
+import {Card,Tabs,message} from 'antd'
 import '../ui.less'
  export default class Tab extends Component{
       newTabIndex=0;
-     constructor(){
-         super();
-     }
      handlecallback=(key)=>{
          message.success("您选择的页签："+key)
      }

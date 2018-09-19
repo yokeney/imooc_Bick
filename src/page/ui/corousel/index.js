@@ -2,9 +2,6 @@ import React,{Component} from "react";
 import {Card,Carousel} from 'antd';
 import '../ui.less'
  export default class Corousel extends Component{
- constructor(){
-     super();
-     }
      render(){
          return (
              <div>

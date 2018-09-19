@@ -4,9 +4,6 @@ import {Card,Row,Col,Modal} from 'antd'
      state={
          visable:false
      }
- constructor(){
-     super();
-     }
      openGallery=(imgsrc)=>{
          this.setState({
              visable:true,

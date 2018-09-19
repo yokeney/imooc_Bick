@@ -32,7 +32,7 @@ import util from '../../util/util'
      return (
             <div className="header">
               <Row className="header-top">
-                <Col span="24"><span>欢迎， {this.state.username}</span><a href="#">退出</a></Col>
+                <Col span="24"><span>欢迎， {this.state.username}</span><a href="http://www.baidu.com">退出</a></Col>
               </Row>
               <Row className="breadcrumb">
                 <Col span="4" className="breadcrumb-title">首页</Col>

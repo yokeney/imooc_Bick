@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {Card,Button,Spin,Icon,Alert} from 'antd'
+import {Card,Spin,Icon,Alert} from 'antd'
  export default class Loading extends Component{
      render(){
          const icon=<Icon type="loading" style={{fontSize:20}}/>

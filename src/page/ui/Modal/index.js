@@ -2,9 +2,6 @@ import React,{Component} from "react";
 import {Modal,Button,Card} from 'antd'
 import '../ui.less'
  export default class Modals extends Component{
-     constructor() {
-         super();
-     }
       state = {
              showModal1: false,
              showModal2: false,

@@ -1,10 +1,10 @@
 import React,{Component} from "react";
 import menuList from '../../config/menuConfig'
 import {NavLink} from "react-router-dom"
-import {Menu,Icon} from 'antd'
+import {Menu} from 'antd'
 import './index.less'
 const SubMenu=Menu.SubMenu
-const MenuItemGroup=Menu.ItemGroup
+// const MenuItemGroup=Menu.ItemGroup
  export default class NavList extends Component{
    componentWillMount(){
      const  meneuTreeNode=this.renderMenu(menuList);
