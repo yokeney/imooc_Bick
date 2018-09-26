@@ -1,5 +1,5 @@
-import React,{Component} from "react";
- import {Card,Table,Modal} from 'antd';
+    import React,{Component} from "react";
+ import {Card,Table,Modal,Button,message} from 'antd';
  import axios from './../../axios/index';
  export default class BasicTable extends Component{
      state={
@@ -15,6 +15,21 @@ import React,{Component} from "react";
          this.setState({
              selectedRowKeys:SelectKey,
              selectItem:record
+         })
+     }
+     handledel=()=>{
+         let rows=this.state.selectedRows;
+         let ids=[];
+         rows.map((item)=>{
+              ids.push(item.id);
+         })
+         Modal.confirm({
+             title:'删除提示',
+             content: `您确定要删除这些数据吗？${ids.join(',')}`,
+             onOk:()=>{
+                 message.success('删除成功');
+                 // this.request();
+             }
          })
      }
      componentDidMount(){
@@ -84,6 +99,16 @@ import React,{Component} from "react";
              type:'radio',
              selectedRowKeys
          };
+         const rowCheckSelection={
+             type:'checkbox',
+             selectedRowKeys,
+             onChange:((selectedRowKeys,selectedRows)=>{
+                  this.setState({
+                      selectedRowKeys,
+                      selectedRows
+                  })
+             })
+         }
         const colum=[
             {
              title: 'id',
@@ -163,6 +188,16 @@ import React,{Component} from "react";
                           },       // 点击行
                         };
                       }}
+                    dataSource={this.state.dataSourse2}
+                    bordered pagination={false}
+                     />
+                </Card>
+                <Card title="mock-多选表格" style={{marginTop:20}}>
+                    <div>
+                        <Button onClick={this.handledel} type="danger">删除</Button>
+                    </div>
+                    <Table columns={colum}
+                    rowSelection={rowCheckSelection}
                     dataSource={this.state.dataSourse2}
                     bordered pagination={false}
                      />
