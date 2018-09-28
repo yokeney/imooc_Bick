@@ -22,7 +22,7 @@ export default class Axios{
           loading=document.getElementById('ajaxLoading');
           loading.style.display="block";
       }
-      let baseApi='https://www.easy-mock.com/mock/5ba0cd160915f041faa14953/yokeAPI/';
+      let baseApi='https://www.easy-mock.com/mock/5baddde8f5f80f6dcfa24fd5/yoke/';
       return new Promise((resolve,reject)=>{
           axios({
               url:options.url,
@@ -37,6 +37,7 @@ export default class Axios{
               }
               if (response.status===200) {
                   let res=response.data;
+                  console.log(res.code);
                   if (res.code===0) {
                       resolve(res);
                   }
