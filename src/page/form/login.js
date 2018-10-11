@@ -14,7 +14,7 @@ const FormItem=Form.Item;
          const { getFieldDecorator}=this.props.form;
          return (
             <div>
-            <Card title="登陆行内表单">
+            <Card title="登陆行内表单 ">
                <Form layout="inline">
                    <FormItem>
                        <Input placeholder="请输入用户名"/>
@@ -33,7 +33,7 @@ const FormItem=Form.Item;
                     {
                         getFieldDecorator('userName',{
                             rules:[{
-                                 required:true,
+                                required:true,
                                 message:'用户名不能为空'
                             },
                             {

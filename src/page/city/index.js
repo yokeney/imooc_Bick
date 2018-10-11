@@ -1,12 +1,13 @@
 import React,{Component} from "react";
-import {Card,Button,Table,Form,Select} from 'antd';
+import {Card,Button,Table,Form,Select,Modal,message} from 'antd';
 import axios from './../../axios/index';
 import util from '../../util/util';
 const FormItem=Form.Item;
 const Option=Select.Option;
  export default class City  extends Component{
      state={
-         list:[]
+         list:[],
+         isModalshow:false
      }
      params={
          page:1
@@ -40,7 +41,28 @@ const Option=Select.Option;
       }
      //开通城市
      handleOpen=()=>{
+         this.setState({
+             isModalshow:true
+         });
 
+      }
+      handelsubmit=()=>{
+          let cityinfo=this.cityForm.props.form.getFieldsValue();
+          console.log(cityinfo);
+          axios.ajax({
+              url: '/opencity',
+              data:{
+                  params:cityinfo
+              }
+          }).then((res)=>{
+              if (res.code===0) {
+                  message.success("开通成功");
+                  this.setState({
+                      isModalshow:false
+                  });
+                  this.requestList();
+              }
+          })
       }
      render(){
          const column=[
@@ -55,10 +77,16 @@ const Option=Select.Option;
              {
                  'title':"用车模式",
                  dataIndex:'mode',
+                 render(mode){
+                     return mode==1?'停车点':'经停区'
+                 }
              },
              {
                  'title':"运营模式",
                  dataIndex:'op_mode',
+                 render(mode){
+                     return mode==1?'自营':'加盟'
+                 }
              },
              {
                  'title':"授权加盟商",
@@ -98,6 +126,15 @@ const Option=Select.Option;
                 <div className="content_wrap">
                     <Table columns={column} bordered dataSource={this.state.list} pagination={this.state.pagination}></Table>
                 </div>
+                <Modal title="开通城市" visible={this.state.isModalshow}
+                onCancel={()=>{
+                    this.setState({
+                        isModalshow:false
+                    })
+                }}
+                 onOk={this.handelsubmit}>
+                <OpenCityForm wrappedComponentRef={(inst)=>{this.cityForm=inst}}/>
+                </Modal>
              </div>
          )
      }
@@ -161,3 +198,58 @@ class FilterForm extends Component{
     }
 }
 FilterForm=Form.create({})(FilterForm);
+class OpenCityForm extends Component{
+    render(){
+        const FormItemLayout={
+            labelCol:{
+                span:5
+            },
+            wrapperCol:{
+                span:8
+            }
+        }
+        const {getFieldDecorator}=this.props.form;
+        return (
+            <Form layout="horizontal">
+                <FormItem label="选择城市" {...FormItemLayout}>
+                {
+                    getFieldDecorator('city_id',{
+                        initialValue:'2'
+                    })(
+                        <Select>
+                            <Option value="1">全部</Option>
+                            <Option value="2">北京市</Option>
+                            <Option value="3">天津市</Option>
+                        </Select>
+                    )
+                }
+                </FormItem>
+                <FormItem label="营运模式" {...FormItemLayout}>
+                {
+                    getFieldDecorator('op_mode',{
+                        initialValue:'2'
+                    })(
+                        <Select>
+                            <Option value="1">自营</Option>
+                            <Option value="2">加盟</Option>
+                        </Select>
+                    )
+                }
+                </FormItem>
+                <FormItem label="用车模式" {...FormItemLayout}>
+                {
+                    getFieldDecorator('use_mode',{
+                        initialValue:'2'
+                    })(
+                        <Select>
+                            <Option value="1">指定停车点</Option>
+                            <Option value="2">经停区</Option>
+                        </Select>
+                    )
+                }
+                </FormItem>
+            </Form>
+        )
+    }
+}
+OpenCityForm=Form.create({})(OpenCityForm);
