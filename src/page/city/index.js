@@ -7,7 +7,8 @@ const Option=Select.Option;
  export default class City  extends Component{
      state={
          list:[],
-         isModalshow:false
+         isModalshow:false,
+         isShowOpenCity:false
      }
      params={
          page:1

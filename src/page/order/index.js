@@ -35,7 +35,31 @@ import util from '../../util/util';
                 })
          })
      }
-     render(){
+     openOrderDetail=()=>{
+         let item =this.state.selectedItem;
+         console.log(this.state.selectedItem)
+         if (!item) {
+             Modal.info({
+                 title: '信息',
+                 content: '请先选择一条订单'
+             })
+             return;
+         }
+         window.open(`/#/common/order/detail/${item[0].id}`,'_blank')
+     }
+    render(){
+         const {selectedRowKeys}=this.state;
+          console.log(selectedRowKeys);
+         const rowCheckSelection={
+             type:'radio',
+             selectedRowKeys,
+             onChange:((selectedRowKeys,selectedRows)=>{
+                  this.setState({
+                      selectedRowKeys,
+                      selectedItem:selectedRows
+                  })
+             })
+         }
          const columns=[
              {
                  title:'订单编号',
@@ -91,14 +115,15 @@ import util from '../../util/util';
                     <FilterForm />
                 </Card>
                 <Card style={{marginTop:10}}>
-                    <Button>订单详情</Button>
-                    <Button>结束订单</Button>
+                    <Button type="primary" onClick={this.openOrderDetail}>订单详情</Button>
+                    <Button type="primary" style={{marginLeft:10}} onClick={this.handleConfirm}>结束订单</Button>
                 </Card>
                 <div className="content_wrap">
                     <Table
                       columns={columns}
                       bordered
                       dataSource={this.state.list}
+                      rowSelection={rowCheckSelection}
                       pagination={this.state.pagination}
                       />
                 </div>

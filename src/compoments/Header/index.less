@@ -1,11 +1,22 @@
 @import "../../resource/default.less";
 .header{
   background-color: @colorM;
+  width: 100%;
   .header-top{
     height: 60px;
   line-height: 60px;
   padding: 0 20px;
   text-align:right;
+  .logod{
+      line-height: 60px;
+      text-align: left;
+      font-size: 18px;
+      img{
+          height: 40px;
+          vertical-align: middle;
+          margin-right: 10px;
+      }
+  }
   a{
     margin-left: 40px;
   }
@@ -37,3 +48,9 @@
     }
   }
 }
+// .simple-page
+  .header-top{
+    background:#1890ff;
+    color:@colorM;
+  }
+// }

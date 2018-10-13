@@ -29,18 +29,29 @@ import util from '../../util/util'
    //    })
    // }
    render(){
-     return (
+    const menuType=this.props.menuType;
+      return (
             <div className="header">
               <Row className="header-top">
-                <Col span="24"><span>欢迎， {this.state.username}</span><a href="http://www.baidu.com">退出</a></Col>
+              {
+                  menuType?
+                  <Col span="6" className="logod">
+                  <img src="/assets/logo-ant.svg" alt=""/>
+                  <span>IMooc通用管理器</span>
+                  </Col>:''
+
+              }
+                <Col span={menuType?18:24}><span>欢迎， {this.state.username}</span><a href="http://www.baidu.com">退出</a></Col>
               </Row>
-              <Row className="breadcrumb">
-                <Col span="4" className="breadcrumb-title">首页</Col>
-                <Col span="20" className="weather">
-                  <span className="weather-date">{this.state.sysTime}</span>
-                  <span className="weather-tatil">多云转晴</span>
-                </Col>
-              </Row>
+              {
+                menuType?'': <Row className="breadcrumb">
+                   <Col span="4" className="breadcrumb-title">首页</Col>
+                   <Col span="20" className="weather">
+                     <span className="weather-date">{this.state.sysTime}</span>
+                     <span className="weather-tatil">多云转晴</span>
+                   </Col>
+                 </Row>
+              }
             </div>
      )
    }

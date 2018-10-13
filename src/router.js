@@ -17,7 +17,9 @@ import FormRegister from './page/form/register'
 import BasicTable from './page/table/basicTable'
 import HightTable from './page/table/hightTable'
 import Order from './page/order'
+import Detail from './page/order/detail'
 import City from './page/city'
+import Common from './common'
 export default class IRouter extends Component{
      render(){
          return (
@@ -25,6 +27,12 @@ export default class IRouter extends Component{
                     <div>
                         <App>
                             <Route path='/login' component={Login}></Route>
+                                <Route path="/common" render={() =>
+                                    <Common>
+                                        <Route path="/common/order/detail/:orderId" component={Detail}/>
+                                    </Common>
+                                }
+                                />
                             <Route path='/admin' render=
                             {
                                 ()=>
