@@ -18,6 +18,7 @@ import './detail.less'
         axios.ajax({
             url:'https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/api/order/detail',
             data:{
+
                 params:{
                     orderId:orderId
                 }
@@ -28,16 +29,86 @@ import './detail.less'
                 this.setState({
                     orderInfo:res.result
                 })
+                this.randerMap(res.result.position_list);
+                this.DwawServiceArea(res.result.area);
             }
         })
      }
+     randerMap=(result)=>{
+         this.map= new window.BMap.Map('orderDetailMap',{enableMapClick:false});
+         this.map.centerAndZoom('北京',11)
+         //添加地图控件
+         this.addMapCotrol();
+         //调用路线路绘制方法
+         this.DwawBikeRoute(result);
+      }
+      addMapCotrol=()=>{
+          let map=this.map;
+          map.addControl(new window.BMap.ScaleControl({anchor:window.BMAP_ANCHOR_TOP_LEFT}))
+          map.addControl(new window.BMap.ScaleControl({anchor:window.BMAP_ANCHOR_TOP_LEFT}))
+       }
+       DwawBikeRoute=(positionList)=>{
+           let map = this.map;
+           let startPoint = '';
+           let endPoint = '';
+           if (positionList.length>0){
+               let first = positionList[0];
+               let last = positionList[positionList.length-1];
+               startPoint = new window.BMap.Point(first.lon,first.lat);
+               let startIcon = new window.BMap.Icon('/assets/start_point.png',new window.BMap.Size(36,42),{
+                   imageSize:new window.BMap.Size(36,42),
+                   anchor: new window.BMap.Size(18, 42)
+               })
+
+               let startMarker = new window.BMap.Marker(startPoint, { icon: startIcon});
+               this.map.addOverlay(startMarker);
+               endPoint = new window.BMap.Point(last.lon, last.lat);
+               let endIcon = new window.BMap.Icon('/assets/end_point.png', new window.BMap.Size(36, 42), {
+                   imageSize:new window.BMap.Size(36, 42),
+                   anchor:new window.BMap.Size(18, 42)
+               })
+               let endMarker = new window.BMap.Marker(endPoint, { icon: endIcon });
+               this.map.addOverlay(endMarker);
+               //连接路线图
+               let trackPoint=[];
+               for (let i = 0; i < positionList.length; i++) {
+                   let point=positionList[i];
+                   trackPoint.push(new window.BMap.Point(point.lon,point.lat));
+               }
+               let polyline=new window.BMap.Polyline(trackPoint,{
+                   strokeColor:'purple',
+                   strokeWeight:3,
+                   strokeOpacity:1
+               })
+               this.map.addOverlay(polyline);
+               this.map.centerAndZoom(endPoint,11);
+
+           }
+
+        }
+        DwawServiceArea=(positionList )=>{
+            let trackPoint=[];
+            for (let i = 0; i < positionList.length; i++) {
+                let point=positionList[i];
+                trackPoint.push(new window.BMap.Point(point.lon,point.lat));
+            }
+            console.log(positionList);
+            let Polygon=new window.BMap.Polygon(trackPoint,{
+                strokeColor:'#ce0000',
+                strokeWeight:4,
+                strokeOpacity:1,
+                fillColor:'#ff8605'
+            })
+             this.map.addOverlay(Polygon);
+             // this.map.centerAndZoom(endPoint,11);
+         }
      render(){
          const info=this.state.orderInfo|| {};
          console.log(info);
          return (
              <div>
                 <Card>
-                    <div id="orderDetailMap"></div>
+                    <div id="orderDetailMap" style={{height:300}}></div>
                     <div className="detail-items">
                         <div className="item-title">基础信息</div>
                         <ul className="detail-form">
