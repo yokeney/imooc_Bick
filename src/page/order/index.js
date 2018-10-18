@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {Card,Button,Table,Form,Select,Modal,message,DatePicker} from 'antd';
 import axios from './../../axios/index';
+import Baseform from '../../compoments/baseForm'
 import util from '../../util/util';
  const FormItem=Form.Item;
  const Option=Select.Option;
@@ -10,16 +11,73 @@ import util from '../../util/util';
      params={
          page:1
      }
+
+     formList=[
+         {
+             type:'SELECT',
+             label:'城市',
+             filed:'city',
+             placeholder:'全部',
+             initialValue:'全部',
+             width:100,
+             list:[
+                 {
+                     id:0,
+                     name:'全部'
+                 },
+                 {
+                     id:1,
+                     name:'深圳'
+                 },
+                 {
+                     id:2,
+                     name:'上海'
+                 }
+             ]
+         },
+         {
+             type:'时间查询'
+         },
+         {
+             type:'SELECT',
+             label:'订单状态',
+             filed:"status",
+             placeholder:'全部',
+             initialValue:'全部',
+             width:100,
+             list:[
+                 {
+                     id:0,
+                     name:'全部'
+                 },
+                 {
+                     id:1,
+                     name:'进行中'
+                 },
+                 {
+                     id:2,
+                     name:'已完成'
+                 }
+             ]
+         }
+     ]
      componentDidMount(){
          this.request();
      }
+     handleFilter=(params)=>{
+         this.params=params;
+         this.request();
+      }
+      reset=()=>{
+          this.props.form.resetFields();
+       }
      request=()=>{
          let _this=this;
          axios.ajax({
              url:'/OrderList',
              data:{
                  params:{
-                     page:this.params.page
+                     page:this.params
                  }
              }
          }).then((res)=>{
@@ -112,7 +170,7 @@ import util from '../../util/util';
          return (
              <div>
                 <Card>
-                    <FilterForm />
+                    <Baseform formList={this.formList} filterSubmit={this.handleFilter} />
                 </Card>
                 <Card style={{marginTop:10}}>
                     <Button type="primary" onClick={this.openOrderDetail}>订单详情</Button>
@@ -131,52 +189,3 @@ import util from '../../util/util';
          )
      }
  }
- class FilterForm extends Component{
-     render(){
-         const  {getFieldDecorator} =this.props.form;
-         return(
-             <Form layout="inline">
-                 <FormItem label="城市">
-                     {
-                         getFieldDecorator('city_id',{})(
-                             <Select placeholder="全部" style={{width:80}}>
-                                 <Option value="">全部</Option>
-                                 <Option value="1">深圳</Option>
-                                 <Option value="2">广州</Option>
-                                 <Option value="3">兴宁</Option>
-                             </Select>
-                         )
-                     }
-                 </FormItem>
-                 <FormItem label="订单时间">
-                     {
-                         getFieldDecorator('start_time',{})(
-                             <DatePicker showTime />
-                         )
-                     }
-                     {
-                         getFieldDecorator('end_time',{})(
-                             <DatePicker style={{marginLeft:20}} showTime />
-                         )
-                     }
-                 </FormItem>
-                 <FormItem label="订单状态">
-                     {
-                         getFieldDecorator('status',{})(
-                             <Select placeholder="全部" style={{width:80}}>
-                                 <Option value="">全部</Option>
-                                 <Option value="1">进行中</Option>
-                                 <Option value="2">结束行程</Option>
-                             </Select>
-                         )
-                     }
-                 </FormItem>
-                 <FormItem>
-                     <Button type="primary" style={{marginLeft:20 }}>查询</Button>
-                     <Button type="primary">重置</Button>
-                 </FormItem>
-             </Form>
-         )
-     }
- }
- FilterForm=Form.create({})(FilterForm);
