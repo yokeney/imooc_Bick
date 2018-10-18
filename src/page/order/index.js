@@ -73,25 +73,7 @@ import util from '../../util/util';
        }
      request=()=>{
          let _this=this;
-         axios.ajax({
-             url:'/OrderList',
-             data:{
-                 params:{
-                     page:this.params
-                 }
-             }
-         }).then((res)=>{
-                this.setState({
-                    list:res.result.item_List.map((item,index)=>{
-                        item.key=index
-                        return item;
-                    }),
-                    pagination:util.pagination(res,(current)=>{
-                       _this.params.page=current;
-                       _this.request();
-                    })
-                })
-         })
+         axios.requestList(this,'/OrderList',this.params)
      }
      openOrderDetail=()=>{
          let item =this.state.selectedItem;
