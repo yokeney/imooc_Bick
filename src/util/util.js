@@ -32,5 +32,20 @@ pagination(data,callback){
                options.push(<Option value={item.id} key={item.id}>{item.name}</Option>)
            })
            return options
-        }
+       },
+       updateSelectedItem(selectedRowKeys,selectItem,selectedIds){
+           if (selectedIds) {
+               this.setState({
+                   selectedRowKeys,
+                   selectItem,
+                   selectedIds
+               })
+           } else {
+               this.setState({
+                   selectedRowKeys,
+                   selectItem,
+               })
+           }
+
+       }
     }

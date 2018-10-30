@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import {Card,Button,Table,Form,Select,Modal,message,DatePicker} from 'antd';
 import axios from './../../axios/index';
 import Baseform from '../../compoments/baseForm'
+import Etable from '../../compoments/Etable'
 import util from '../../util/util';
  const FormItem=Form.Item;
  const Option=Select.Option;
@@ -76,8 +77,7 @@ import util from '../../util/util';
          axios.requestList(this,'/OrderList',this.params)
      }
      openOrderDetail=()=>{
-         let item =this.state.selectedItem;
-         console.log(this.state.selectedItem)
+         let item =this.state.selectItems;
          if (!item) {
              Modal.info({
                  title: '信息',
@@ -85,21 +85,9 @@ import util from '../../util/util';
              })
              return;
          }
-         window.open(`/#/common/order/detail/${item[0].id}`,'_blank')
+         window.open(`/#/common/order/detail/${item.id}`,'_blank')
      }
     render(){
-         const {selectedRowKeys}=this.state;
-          console.log(selectedRowKeys);
-         const rowCheckSelection={
-             type:'radio',
-             selectedRowKeys,
-             onChange:((selectedRowKeys,selectedRows)=>{
-                  this.setState({
-                      selectedRowKeys,
-                      selectedItem:selectedRows
-                  })
-             })
-         }
          const columns=[
              {
                  title:'订单编号',
@@ -159,13 +147,16 @@ import util from '../../util/util';
                     <Button type="primary" style={{marginLeft:10}} onClick={this.handleConfirm}>结束订单</Button>
                 </Card>
                 <div className="content_wrap">
-                    <Table
-                      columns={columns}
-                      bordered
-                      dataSource={this.state.list}
-                      rowSelection={rowCheckSelection}
-                      pagination={this.state.pagination}
-                      />
+                    <Etable
+                     updateSelectedItem={util.updateSelectedItem.bind(this)}
+                     columns={columns}
+                     dataSource={this.state.list}
+                     rowSelection="checkbox"
+                     selectedIds={this.state.selectedIds}
+                     selectItem={this.state.selectItem}
+                     selectedRowKeys={this.state.selectedRowKeys}
+                     pagination={this.state.pagination}
+                     />
                 </div>
              </div>
          )
