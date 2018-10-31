@@ -11,6 +11,7 @@ import Notification from './page/ui/notification'
 import Msg from './page/ui/Message'
 import Tab from './page/ui/tab'
 import Gallery from './page/ui/gallery'
+import User from './page/user'
 import Corousel from './page/ui/corousel'
 import Logins from './page/form/login'
 import FormRegister from './page/form/register'
@@ -52,6 +53,7 @@ export default class IRouter extends Component{
                                         <Route path='/admin/table/high' component={HightTable}></Route>
                                         <Route path='/admin/city' component={City}></Route>
                                         <Route path='/admin/order' component={Order}></Route>
+                                        <Route path='/admin/user' component={User}></Route>
                                         <Route  component={NoMatch}></Route>
                                     </Switch>
                                 </Admin>

@@ -152,10 +152,9 @@ import util from '../../util/util';
                      columns={columns}
                      dataSource={this.state.list}
                      rowSelection="checkbox"
-                     selectedIds={this.state.selectedIds}
                      selectItem={this.state.selectItem}
                      selectedRowKeys={this.state.selectedRowKeys}
-                     pagination={this.state.pagination}
+                     pagination={false}
                      />
                 </div>
              </div>

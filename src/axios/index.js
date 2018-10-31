@@ -12,7 +12,7 @@ export default class Axios{
           data
       }).then((data)=>{
           if (data && data.result) {
-              let list=data.result.item_List.map((item,index)=>{
+              let list=data.result.list.map((item,index)=>{
                   item.key=index
                   return item;
               })
