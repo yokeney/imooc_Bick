@@ -57,7 +57,9 @@
                  isVisible:true,
                  title:"创建员工"
              })
-
+         }
+         else if(type==="edit"){
+             
          }
       }
       handleSubmit=()=>{
@@ -70,6 +72,7 @@
               }
           }).then((res)=>{
               if (res.code==="0") {
+                  this.userForm.props.form.resetFields();
                   this.setState({
                       isVisible:false
                   })
@@ -158,7 +161,8 @@
                 </div>
                 <Modal title={this.state.title} visible={this.state.isVisible}
                 onOk={this.handleSubmit}
-                onCancle={()=>{
+                onCancel={()=>{
+                    this.userForm.props.form.resetFields();
                     this.setState({
                         isVisible:false
                     })
