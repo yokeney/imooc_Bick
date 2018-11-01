@@ -77,7 +77,7 @@ import util from '../../util/util';
          axios.requestList(this,'/OrderList',this.params)
      }
      openOrderDetail=()=>{
-         let item =this.state.selectItems;
+         let item =this.state.selectItem;
          if (!item) {
              Modal.info({
                  title: '信息',

@@ -1,14 +1,20 @@
  import React,{Component} from "react";
- import {Card,Button} from "antd"
+ import {Card,Button,Modal,Form,Radio,DatePicker,Input,Select} from "antd"
  import util from "../../util/util"
  import Baseform from "../../compoments/baseForm"
  import axios from "./../../axios/index"
  import Etable from "../../compoments/Etable"
+ const FormItem=Form.Item;
+ const RadioGroup=Radio.Group;
+ const TextArea=Input.TextArea;
+ const Option=Select.Option;
  export default class User  extends Component{
      params={
          page:1
      }
-     state={}
+     state={
+         isVisible:false
+     }
      formList=[
          {
              type:'INPUT',
@@ -43,6 +49,34 @@
          let _this=this;
          axios.requestList(this,'/tableList',this.params)
      }
+     openOrderDetail=(type)=>{
+         console.log(type);
+         if (type=="create") {
+             this.setState({
+                 type,
+                 isVisible:true,
+                 title:"创建员工"
+             })
+
+         }
+      }
+      handleSubmit=()=>{
+          let type=this.state.type;
+          let data=this.userForm.props.form.getFieldsValue();
+          axios.ajax({
+              url:"/userAdd",
+              data:{
+                  params:data
+              }
+          }).then((res)=>{
+              if (res.code==="0") {
+                  this.setState({
+                      isVisible:false
+                  })
+                  this.request();
+              }
+          })
+       }
      render(){
          const column=[
              {
@@ -104,6 +138,12 @@
                 <Card>
                     <Baseform formList={this.formList} filterSubmit={this.handleFilter}  />
                 </Card>
+                <Card style={{marginTop:10}}>
+                    <Button type="primary" icon="plus" onClick={()=>this.openOrderDetail('create')}>添加员工</Button>
+                    <Button type="primary" icon="edit" onClick={()=>this.openOrderDetail('edit')}>编辑员工</Button>
+                    <Button type="primary" icon="plus" onClick={()=>this.openOrderDetail('detail')}>员工详情</Button>
+                    <Button type="primary" icon="delete" onClick={()=>this.openOrderDetail('delete')}>删除员工</Button>
+                </Card>
                 <div className="content_wrap">
                     <Etable
                      updateSelectedItem={util.updateSelectedItem.bind(this)}
@@ -116,7 +156,80 @@
                      pagination={this.state.pagination}
                      />
                 </div>
+                <Modal title={this.state.title} visible={this.state.isVisible}
+                onOk={this.handleSubmit}
+                onCancle={()=>{
+                    this.setState({
+                        isVisible:false
+                    })
+                }}
+                width={600}
+                >
+                <UserForm type={this.state.type} wrappedComponentRef={(inst)=>this.userForm=inst}></UserForm>
+                </Modal>
              </div>
          )
      }
  }
+class UserForm extends Component{
+    render(){
+        const {getFieldDecorator} =this.props.form;
+        const formitemLayout={
+            labelCol:{span:5},
+            wrapperCol:{span:15}
+        }
+        return(
+            <Form layout="horizontal">
+                <FormItem label="用户名" {...formitemLayout}>
+                {
+                    getFieldDecorator("user_name")(
+                        <Input type="text" placeholder="请输入用户名" />
+                    )
+                }
+                </FormItem>
+                <FormItem label="性别" {...formitemLayout}>
+                {
+                    getFieldDecorator("sex")(
+                        <RadioGroup>
+                            <Radio value={1}>
+                                男
+                            </Radio>
+                            <Radio value={2}>
+                                女
+                            </Radio>
+                        </RadioGroup>
+                    )
+                }
+                </FormItem>
+                <FormItem label="状态" {...formitemLayout}>
+                {
+                    getFieldDecorator("status")(
+                        <Select>
+                        <Option value={1}>1</Option>
+                        <Option value={2}>2</Option>
+                        <Option value={3}>3</Option>
+                        <Option value={4}>4</Option>
+                        <Option value={5}>5</Option>
+                        </Select>
+                    )
+                }
+                </FormItem>
+                <FormItem label="生日" {...formitemLayout}>
+                {
+                    getFieldDecorator("birthday")(
+                        <DatePicker />
+                    )
+                }
+                </FormItem>
+                <FormItem label="联系地址" {...formitemLayout}>
+                {
+                    getFieldDecorator("address")(
+                        <TextArea row={3} placeholder="请输入联系地址"/>
+                    )
+                }
+                </FormItem>
+            </Form>
+        )
+    }
+}
+UserForm=Form.create({})(UserForm);
