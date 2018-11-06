@@ -29,7 +29,7 @@ const Option=Select.Option;
          }).then((res)=>{
                  console.log(res.result);
                  this.setState({
-                 list:res.result.item_list.map((item,index)=>{
+                 list:res.result.list.map((item,index)=>{
                      item.key=index;
                      return item;
                  }),

@@ -64,6 +64,20 @@ class Baseform extends React.Component{
                     </FormItem>
                     FormItemList.push(SELECT)
                 }
+                else if (item.type==="城市") {
+                    const SELECT=<FormItem label={"城市"} key={filed}>
+                    {
+                        getFieldDecorator("city",{
+                            initialValue:"0"
+                        })(
+                            <Select placeholder={placeholder} style={{width:width}}>
+                                {util.getOptionList([{id:0,name:"全部"},{id:1,name:"北京"},{id:2,name:"上海"},{id:3,name:"广东"},{id:4,name:"杭州"}])}
+                            </Select>
+                        )
+                    }
+                    </FormItem>
+                    FormItemList.push(SELECT)
+                }
                 else if (item.type==="CHECKBOX") {
                     const CHECKBOX=<FormItem label={label} key={filed}>
                     {

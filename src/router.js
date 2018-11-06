@@ -17,6 +17,7 @@ import Logins from './page/form/login'
 import FormRegister from './page/form/register'
 import BasicTable from './page/table/basicTable'
 import HightTable from './page/table/hightTable'
+import Bikemap from './page/map/bikeMap'
 import Order from './page/order'
 import Detail from './page/order/detail'
 import City from './page/city'
@@ -54,6 +55,7 @@ export default class IRouter extends Component{
                                         <Route path='/admin/city' component={City}></Route>
                                         <Route path='/admin/order' component={Order}></Route>
                                         <Route path='/admin/user' component={User}></Route>
+                                        <Route path='/admin/bikeMap' component={Bikemap}></Route>
                                         <Route  component={NoMatch}></Route>
                                     </Switch>
                                 </Admin>
