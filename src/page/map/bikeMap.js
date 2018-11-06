@@ -38,7 +38,57 @@ import axios from "./../../axios/index"
           let gps2=list[list.length-1].split(",");
           // 终点
           let endPoint=new window.BMap.Point(gps2[0],gps2[1]);
-          this.map.centerAndZoom(endPoint,11)
+          this.map.centerAndZoom(endPoint,11);
+          //添加起点的样式图片
+          let startPointIcon=new window.BMap.Icon('/assets/start_point.png',new window.BMap.Size(36,42),
+              {imageSize:new window.BMap.Size(36,42),anchor:new window.BMap.Size(18,42)
+          })
+          let bikeMarkerStart=new window.BMap.Marker(startPoint,{icon:startPointIcon});
+          //将起点对象绑定到地图上
+          this.map.addOverlay(bikeMarkerStart);
+          //添加终点的样式图片
+          let endPointIcon=new window.BMap.Icon('/assets/end_point.png',new window.BMap.Size(36,42),
+              {imageSize:new window.BMap.Size(36,42),anchor:new window.BMap.Size(18,42)
+          })
+          let bikeMarkerend=new window.BMap.Marker(endPoint,{icon:endPointIcon});
+          //将终点对象绑定到地图上
+          this.map.addOverlay(bikeMarkerend);
+          // 绘制luxian
+          let routeList=[];
+          list.forEach((item)=>{
+              let p=item.split(',');
+              routeList.push(new window.BMap.Point(p[0],p[1]))
+          })
+          let ployline=new window.BMap.Polyline(routeList,{
+              strokeColor:"#ef4136",
+              strokeWeight:3,
+              strokeOpacity:1,
+          })
+          this.map.addOverlay(ployline);
+          //绘制服务区
+          let servicePointList=[];
+          let serviceList=res.result.service_list;
+          serviceList.forEach((item)=>{
+              servicePointList.push(new window.BMap.Point(item.lon,item.lat));
+          })
+          let ployServiceline=new window.BMap.Polyline(servicePointList,{
+              strokeColor:"#ef4139",
+              strokeWeight:3,
+              strokeOpacity:1,
+          })
+          this.map.addOverlay(ployServiceline);
+            //添加地图中的自行车图片
+            let bikeList=res.result.bike_list;
+            let bikeIcon=new window.BMap.Icon('/assets/bike.jpg',new window.BMap.Size(36,42),{
+                imageSize:new window.BMap.Size(36,42),
+                anchor:new window.BMap.Size(18,42)
+            })
+            bikeList.forEach((item)=>{
+                let p=item.split(",");
+                let point=new window.BMap.Point(p[0],p[1]);
+                let bikeMarker=new window.BMap.Marker(point,{icon:bikeIcon});
+                this.map.addOverlay(bikeMarker);
+            })
        }
      formList=[
          {
