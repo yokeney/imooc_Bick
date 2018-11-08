@@ -48,16 +48,16 @@ import util from '../../util/util';
                      <Button type="primary" onClick={this.handleGetContent}>用户授权</Button>
                  </Card>
                  <Card>
-                    <div className="content-wrap">
-                        <Etable
-                            columns={columns}
-                            updateSelectedItem={util.updateSelectedItem.bind(this)}
-                            selectItem={this.state.selectItem}
-                            selectedRowKeys={this.state.selectedRowKeys}
-                            dataSource={this.state.list}
-                            pagination={false}
-                        />
-                    </div>
+                     <div className="content-wrap">
+                         <Etable
+                             columns={columns}
+                             updateSelectedItem={util.updateSelectedItem.bind(this)}
+                             selectItem={this.state.selectItem}
+                             selectedRowKeys={this.state.selectedRowKeys}
+                             dataSource={this.state.list}
+                             pagination={false}
+                         />
+                     </div>
                  </Card>
              </div>
 
