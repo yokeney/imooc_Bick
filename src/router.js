@@ -18,7 +18,8 @@ import FormRegister from './page/form/register'
 import BasicTable from './page/table/basicTable'
 import HightTable from './page/table/hightTable'
 import Bikemap from './page/map/bikeMap'
-import Bar from './page/echarts'
+import Bar from './page/echarts/bar'
+import Pie from './page/echarts/pie'
 import Order from './page/order'
 import Detail from './page/order/detail'
 import City from './page/city'
@@ -58,6 +59,7 @@ export default class IRouter extends Component{
                                         <Route path='/admin/user' component={User}></Route>
                                         <Route path='/admin/bikeMap' component={Bikemap}></Route>
                                         <Route path='/admin/charts/bar' component={Bar}></Route>
+                                        <Route path='/admin/charts/pie' component={Pie}></Route>
                                         <Route  component={NoMatch}></Route>
                                     </Switch>
                                 </Admin>
