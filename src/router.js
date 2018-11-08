@@ -20,6 +20,7 @@ import HightTable from './page/table/hightTable'
 import Bikemap from './page/map/bikeMap'
 import Bar from './page/echarts/bar'
 import Pie from './page/echarts/pie'
+import Line from './page/echarts/line'
 import Order from './page/order'
 import Detail from './page/order/detail'
 import City from './page/city'
@@ -60,6 +61,7 @@ export default class IRouter extends Component{
                                         <Route path='/admin/bikeMap' component={Bikemap}></Route>
                                         <Route path='/admin/charts/bar' component={Bar}></Route>
                                         <Route path='/admin/charts/pie' component={Pie}></Route>
+                                        <Route path='/admin/charts/line' component={Line}></Route>
                                         <Route  component={NoMatch}></Route>
                                     </Switch>
                                 </Admin>

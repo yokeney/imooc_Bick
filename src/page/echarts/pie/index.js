@@ -4,13 +4,13 @@ import {Card} from 'antd';
 //按需加载
 import echartTheme from './themeLight'
 import echarts from 'echarts/lib/echarts'
-import 'echarts/lib/chart/bar'
+import 'echarts/lib/chart/pie'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/markPoint'
 import ReactEcharts from 'echarts-for-react'
- export default class Bar extends Component{
+ export default class Pie extends Component{
      componentWillMount(){
          echarts.registerTheme('imooc',echartTheme);
      }
