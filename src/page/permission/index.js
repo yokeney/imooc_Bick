@@ -1,18 +1,44 @@
 import React,{Component} from "react";
-import {Card,Button,Modal,Form,Select,Input,Message} from 'antd';
+import {Card,Button,Modal,Form,Select,Input,Message,Tree} from 'antd';
 import Etable from '../../compoments/Etable'
 import axios from './../../axios/index';
 import util from '../../util/util';
+import menuConfig from './../../config/menuConfig.js'
 const FormItem=Form.Item;
 const Option=Select.Option;
+const TreeNode=Tree.TreeNode;
  export default class PermissionUser  extends Component{
      state={
-         isVisible:false
+         isVisible:false,
+         isPermissVisible:false,
+         isPermissVisible:false,
+         dtailIinfo:{},
      }
      componentWillMount(){
          console.log(this.state.selectItem);
          axios.requestList(this,'/role/list',{})
      }
+     handlePerSubmit=()=>{
+         let data=this.perForm.props.form.getFieldsValue();
+         data.role_id=this.state.selectItem.id;
+         data.menus=this.state.menuinfo;
+         console.log(data);
+         axios.ajax({
+             url:"/perEdit",
+             data:{
+                 params:{
+                     ...data
+                 }
+             }
+         }).then((res)=>{
+             if (res.code=="0") {
+                 this.setState({
+                     isPermissVisible:false
+                 })
+                 axios.requestList(this,'/role/list',{})
+             }
+         })
+      }
      handleRoleCreate=()=>{
          this.setState({
              isVisible:true
@@ -31,13 +57,26 @@ const Option=Select.Option;
                   this.setState({
                       isVisible:false
                   },()=>{
-                      Message.info("创建成功")
+                      Message.info("创建成功了")
                   })
                   axios.requestList(this,'/role/list',{})
 
               }
           })
-
+       }
+       handlePermission=()=>{
+           let item=this.state.selectItem;
+           if(!item){
+               Modal.info({
+                   text:"请现在一个角色"
+               })
+               return
+           }
+           this.setState({
+               isPermissVisible:true,
+               dtailIinfo:item,
+               menuinfo:item.menus
+           })
        }
      render(){
          const columns=[
@@ -102,6 +141,24 @@ const Option=Select.Option;
                  >
                     <RoleForm  wrappedComponentRef={(inst)=>this.RoleForm=inst }/ >
                  </Modal>
+                 <Modal
+                    title="设置权限"
+                    visible={this.state.isPermissVisible}
+                    width={600}
+                    onOk={this.handlePerSubmit}
+                    onCancel={()=>{
+                        this.setState({
+                            isPermissVisible:false
+                        })
+                    }}
+                 >
+                 <PerEditForm
+                 menuinfo={this.state.menuinfo}
+                 patchMenuInfo={(checkedKeys)=>{this.setState({menuinfo:checkedKeys})}}
+                 wrappedComponentRef={(inst)=>this.perForm=inst }
+                 dtailIinfo={this.state.dtailIinfo}/>
+                 </Modal>
+
              </div>
          )
      }
@@ -148,3 +205,61 @@ const Option=Select.Option;
      }
  }
  RoleForm=Form.create({})(RoleForm);
+class PerEditForm extends Component{
+    onCheck=(checkedKeys)=>{
+        this.props.patchMenuInfo(checkedKeys);
+     }
+    renderTreeNode=(data)=>{
+        return data.map((item)=>{
+            if (item.children) {
+                return <TreeNode title={item.title} key={item.key}>
+                    {this.renderTreeNode(item.children)}
+                </TreeNode>
+            }
+            else{
+                return <TreeNode title={item.title} key={item.key} />
+            }
+        })
+     }
+    render(){
+        const {getFieldDecorator}=this.props.form;
+        const dtailIinfo=this.props.dtailIinfo;
+        const menuinfo=this.props.menuinfo;
+        const formitemLayout={
+            labelCol:{span:5},
+            wrapperCol:{span:19}
+        }
+        return(
+            <Form layout="horizontal">
+                    <FormItem label="角色名称" {...formitemLayout}>
+                        <Input disabled placeholder={dtailIinfo.role_name}/>
+                    </FormItem>
+                    <FormItem label="状态" {...formitemLayout}>
+                        {
+                            getFieldDecorator("status",{
+                                initialValue:"1"
+                            })(
+                                <Select>
+                                    <Option value="1">启用</Option>
+                                    <Option value="0">停用</Option>
+                                </Select>
+                            )
+                        }
+                    </FormItem>
+                    <Tree
+                     checkable
+                     defaultExpandAll
+                     onCheck={(checkedKeys)=>{
+                         this.onCheck(checkedKeys)
+                     }}
+                     checkedKeys={menuinfo}
+                     >
+                        <TreeNode title="平台权限" key="platform-all">
+                            {this.renderTreeNode(menuConfig)}
+                        </TreeNode>
+                    </Tree>
+            </Form>
+        )
+    }
+}
+PerEditForm=Form.create({})(PerEditForm);
