@@ -5,6 +5,7 @@ import Login from './page/login'
 import Admin from './admin' ;
 import Buttons from './page/ui/buttons'
 import Modals from './page/ui/Modal'
+import Home from './page/Home'
 import NoMatch from './page/noMatch'
 import Loading from './page/ui/Loading'
 import Notification from './page/ui/notification'
@@ -46,7 +47,7 @@ export default class IRouter extends Component{
                                 ()=>
                                 <Admin>
                                     <Switch>
-                                        <Redirect to="/home"/>
+                                        <Route path='/home' component={Home}></Route>
                                         <Route path='/ui/buttons' component={Buttons}></Route>
                                         <Route path='/ui/Modals' component={Modals}></Route>
                                         <Route path='/ui/loading' component={Loading}></Route>
@@ -68,6 +69,7 @@ export default class IRouter extends Component{
                                         <Route path='/charts/line' component={Line}></Route>
                                         <Route path='/rich' component={RichText}></Route>
                                         <Route path='/permission' component={PermissionUser}></Route>
+                                        <Redirect to="/home"/>
                                         <Route  component={NoMatch}></Route>
                                     </Switch>
                                 </Admin>
