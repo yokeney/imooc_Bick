@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {Card,Button,Modal,Form,Select,Input,Message,Tree,Transfer} from 'antd';
+import {Card,Button,Modal,Form,Select,Input,message,Tree,Transfer} from 'antd';
 import Etable from '../../compoments/Etable'
 import axios from './../../axios/index';
 import util from '../../util/util';
@@ -57,7 +57,7 @@ const TreeNode=Tree.TreeNode;
                   this.setState({
                       isVisible:false
                   },()=>{
-                      Message.info("创建成功了")
+                      message.info("创建成功了")
                   })
                   axios.requestList(this,'/role/list',{})
 
@@ -339,7 +339,7 @@ class PerEditForm extends Component{
                     </FormItem>
                     <Tree
                      checkable
-                     defaultExpandAll
+                     // defaultExpandAll
                      onCheck={(checkedKeys)=>{
                          this.onCheck(checkedKeys)
                      }}
@@ -356,6 +356,7 @@ class PerEditForm extends Component{
 PerEditForm=Form.create({})(PerEditForm);
 class RoleAuthForm extends Component{
     onCheck=(checkedKeys)=>{
+        console.log(checkedKeys);
         this.props.patchMenuInfo(checkedKeys);
     }
      filterOption = (inputValue, option) => {
