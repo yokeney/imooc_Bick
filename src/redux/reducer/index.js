@@ -1,17 +1,21 @@
-import {type} from './../action'
-const initialState={
-    meneuName:'首页'
+/**
+ * Reducer 数据处理
+ */
+import { type } from './../action'
+const initialState = {
+    menuName:'首页'
 }
-export default (state=initialState,action)=>{
-    switch (action) {
+
+export default (state = initialState,action)=>{
+    switch (action.type) {
         case type.SWITCH_MENU:
             return {
                 ...state,
-                meneuName:action.meneuName
+                menuName:action.menuName
             }
-            break;
         default:
-            break;
-
+            return {
+                ...state
+            };
     }
 }

@@ -1,10 +1,13 @@
-
-export const  type={
+/**
+ * Action 类型
+ */
+export const type = {
     SWITCH_MENU:'SWITCH_MENU'
 }
-export function switchMenu(meneuName){
+
+export function switchMenu(menuName) {
     return {
         type:type.SWITCH_MENU,
-        meneuName
+        menuName
     }
 }
